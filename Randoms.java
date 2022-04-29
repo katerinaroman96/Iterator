@@ -7,23 +7,27 @@ import java.util.Random;
 
 public class Randoms implements Iterable<Integer> {
     protected Random random;
-    List<Integer> list = new ArrayList<>();
+    int min;
+    int max;
+    
     public Randoms(int min, int max) {
-        getRandom(min, max);
+        this.min = min;
+        this.max = max;
     }
 
-    public void getRandom(int min, int max) {
+    public int getRandom(int min, int max) {
         random = new Random();
         int diff = max - min;
         int randomNumber;
         randomNumber = random.nextInt(diff + 1);
-        list.add(randomNumber + min);
+        return randomNumber + min;
     }
 
     @Override
     public Iterator<Integer> iterator() {
         return new Iterator<>() {
             int index = 0;
+            
             @Override
             public boolean hasNext() {
                 return true;
@@ -31,10 +35,8 @@ public class Randoms implements Iterable<Integer> {
 
             @Override
             public Integer next() {
-                getRandom(10, 100);
-                int test = list.get(index);
                 index++;
-                return test;
+                return getRandom(min, max);
             }
         };
     }
